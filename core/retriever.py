@@ -1,4 +1,4 @@
-from vectorstore.base import VectorStore
+from .vectorstore.base import VectorStore
 from langchain_core.vectorstores import VectorStoreRetriever
 
 class Retriever():

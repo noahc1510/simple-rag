@@ -1,4 +1,4 @@
-from base import DocumentLoader
+from core.document_loader.base import DocumentLoader
 import bs4
 from langchain_community.document_loaders import WebBaseLoader
 

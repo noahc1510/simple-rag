@@ -1,5 +1,5 @@
 from chromadb import Embeddings
-from base import VectorStore
+from .base import VectorStore
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_core.documents import Document

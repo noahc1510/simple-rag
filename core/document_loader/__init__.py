@@ -1,1 +1,2 @@
-from html_loader import HtmlLoader
+from .base import DocumentLoader
+from .html_loader import HtmlLoader

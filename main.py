@@ -11,7 +11,7 @@ dotenv.load_dotenv()
 
 # Document Loader
 loader = HtmlLoader()
-docs = "https://lilianweng.github.io/posts/2023-06-23-agent/"
+docs = loader.run("https://lilianweng.github.io/posts/2023-06-23-agent/")
 
 
 # Text Splitter
@@ -32,7 +32,7 @@ vectorstore = ChromaEngine(embedding_function=emb)
 vectorstore.add_documents(all_splits)
 
 # Retrie
-retriever = Retriever(vectorstore)
+retriever = Retriever(vectorstore=vectorstore)
 retrieved_docs = retriever.query("What are the approaches to Task Decomposition?")
 
 pass
