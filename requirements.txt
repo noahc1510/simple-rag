@@ -1,0 +1,7 @@
+langchain-community
+langchain-openai
+langchain-chroma
+
+# API Service Only
+fastapi
+python-multipart

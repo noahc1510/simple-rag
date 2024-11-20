@@ -1,4 +1,4 @@
-from core.document_loader.base import DocumentLoader
+from .base import DocumentLoader
 import bs4
 from langchain_community.document_loaders import WebBaseLoader
 
@@ -22,4 +22,5 @@ class HtmlLoader(DocumentLoader):
 if __name__ == "__main__":
     loader = HtmlLoader()
     ret = loader.run("https://lilianweng.github.io/posts/2023-06-23-agent/")
+    print(ret[0].page_content)
     pass

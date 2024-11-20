@@ -1,7 +1,7 @@
 import os
 from core.document_loader import HtmlLoader
 from core.text_splitter import RecursiveCharacterTextSplitter
-from core.vectorstore import ChromaEngine
+from core.kb_services import ChromaService
 from core.retriever import Retriever
 
 from langchain_openai import OpenAIEmbeddings
@@ -24,9 +24,10 @@ all_splits = text_splitter.split_documents(docs)
 # Set Embedding Engine
 emb = OpenAIEmbeddings(
     base_url=os.environ.get("OPENAI_BASE_URL"),
-    api_key=os.environ.get("OPENAI_API_KEY")
+    api_key=os.environ.get("OPENAI_API_KEY"),
+    model="text-embedding-ada-002"
 )
-vectorstore = ChromaEngine(embedding_function=emb)
+vectorstore = ChromaService(name="example_collections", embedding_function=emb)
 
 # Add Document
 vectorstore.add_documents(all_splits)
