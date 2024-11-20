@@ -1,7 +1,7 @@
 from unittest import loader
 from fastapi import FastAPI, UploadFile
 from langchain_openai import OpenAIEmbeddings
-from core.text_splitter import RecursiveCharacterTextSplitter
+from core.text_splitter import RecursiveCharacterTextSplitter, AliTextSplitter, ChineseRecursiveTextSplitter, CharacterTextSplitter
 import requests
 from sympy import EX
 import uvicorn
@@ -83,7 +83,7 @@ def upload(file: UploadFile, kb_name: str, use_ocr: bool):
             ocr_function=ocr_function
         )
         if docs:
-            text_splitter = RecursiveCharacterTextSplitter(
+            text_splitter = CharacterTextSplitter(
                 chunk_size=1000, chunk_overlap=200, add_start_index=True
             )
             all_splits = text_splitter.split_documents(docs)
