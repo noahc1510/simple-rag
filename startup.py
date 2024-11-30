@@ -1,21 +1,21 @@
 from unittest import loader
 from fastapi import FastAPI, UploadFile
 from langchain_openai import OpenAIEmbeddings
-from core.text_splitter import RecursiveCharacterTextSplitter, AliTextSplitter, ChineseRecursiveTextSplitter, CharacterTextSplitter
+from simplerag.text_splitter import RecursiveCharacterTextSplitter, AliTextSplitter, ChineseRecursiveTextSplitter, CharacterTextSplitter
 import requests
 from sympy import EX
 import uvicorn
 from pydantic import BaseModel
 import os
 
-from core.kb_services import ChromaService
-from core.retriever import Retriever
+from simplerag.kb_services import ChromaService
+from simplerag.retriever import Retriever
 
 import dotenv
 dotenv.load_dotenv()
 
 app = FastAPI()
-
+    
 # TODO: Configurable
 emb = OpenAIEmbeddings(
     base_url=os.environ.get("OPENAI_BASE_URL"),
@@ -75,7 +75,7 @@ def upload(file: UploadFile, kb_name: str, use_ocr: bool):
 
         ocr_function=None
         if use_ocr:
-            from core.document_loader.utils import PaddleOCR
+            from simplerag.document_loader.utils import PaddleOCR
             ocr_function = PaddleOCR()
         print(ocr_function)
         docs = loader.run(
@@ -83,7 +83,7 @@ def upload(file: UploadFile, kb_name: str, use_ocr: bool):
             ocr_function=ocr_function
         )
         if docs:
-            text_splitter = CharacterTextSplitter(
+            text_splitter = AliTextSplitter(
                 chunk_size=1000, chunk_overlap=200, add_start_index=True
             )
             all_splits = text_splitter.split_documents(docs)

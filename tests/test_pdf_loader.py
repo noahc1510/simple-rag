@@ -1,4 +1,4 @@
-from core.document_loader import PDFLoader
+from simplerag.document_loader import PDFLoader
 
 if __name__ == "__main__":
     path = "/Users/noah/Downloads/report.pdf"

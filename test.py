@@ -1,8 +1,8 @@
 import os
-from core.document_loader import HtmlLoader
-from core.text_splitter import RecursiveCharacterTextSplitter
-from core.kb_services import ChromaService
-from core.retriever import Retriever
+from simplerag.document_loader import HtmlLoader
+from simplerag.text_splitter import RecursiveCharacterTextSplitter
+from simplerag.kb_services import ChromaService
+from simplerag.retriever import Retriever
 
 from langchain_openai import OpenAIEmbeddings
 
