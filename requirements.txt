@@ -2,6 +2,9 @@ langchain-community
 langchain-openai
 langchain-chroma
 opencv-python
+beautifulsoup4
+rapidocr_paddle
+paddlepaddle
 
 # For ali_text_splitter
 modelscope
@@ -10,7 +13,7 @@ addict
 datasets<=3.0.1
 oss2
 simplejson
-modelscope[nlp]
+# modelscope[nlp]
 
 # API Service Only
 fastapi
