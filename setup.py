@@ -15,11 +15,12 @@ setup(
         'beautifulsoup4',
         'rapidocr_paddle',
         'paddlepaddle'
-        # 'addict',
+        'addict',
         # https://github.com/modelscope/modelscope/issues/1050
         # 'datasets<=3.0.1',
-        # 'oss2',
-        # 'simplejson',
+        'oss2',
+        'simplejson',
+        'sortedcontainers',
         # 'modelscope[nlp]',
     ],
     # dependencies_links=[
