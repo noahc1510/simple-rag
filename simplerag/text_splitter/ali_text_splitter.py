@@ -1,11 +1,27 @@
 import re
-from typing import List
+from typing import List, Optional
 
 from langchain.text_splitter import CharacterTextSplitter
+import torch
 
 
 class AliTextSplitter(CharacterTextSplitter):
-    def __init__(self, pdf: bool = False, **kwargs):
+    def __init__(self, pdf: bool = False, device=Optional[str], **kwargs):
+        try:
+            from modelscope.pipelines import pipeline
+        except ImportError as e:
+            raise ImportError(
+                "Could not import modelscope python package. "
+                "Please install modelscope with `pip install modelscope`. "
+                f"detail: {e}"
+            )
+
+        self.p = pipeline(
+            task="document-segmentation",
+            model="damo/nlp_bert_document-segmentation_chinese-base",
+            device=device if device is not None else (
+                "cuda" if torch.cuda.is_available() else "cpu"),
+        )
         super().__init__(**kwargs)
         self.pdf = pdf
 
@@ -17,20 +33,7 @@ class AliTextSplitter(CharacterTextSplitter):
             text = re.sub(r"\n{3,}", r"\n", text)
             text = re.sub("\s", " ", text)
             text = re.sub("\n\n", "", text)
-        try:
-            from modelscope.pipelines import pipeline
-        except ImportError as e:
-            raise ImportError(
-                "Could not import modelscope python package. "
-                "Please install modelscope with `pip install modelscope`. "
-                f"detail: {e}"
-            )
 
-        p = pipeline(
-            task="document-segmentation",
-            model="damo/nlp_bert_document-segmentation_chinese-base",
-            device="cpu",
-        )
-        result = p(documents=text)
+        result = self.p(documents=text)
         sent_list = [i for i in result["text"].split("\n\t") if i]
         return sent_list
