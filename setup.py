@@ -14,7 +14,7 @@ setup(
         'modelscope',
         'beautifulsoup4',
         'rapidocr_paddle',
-        'paddlepaddle'
+        'paddlepaddle',
         'addict',
         # https://github.com/modelscope/modelscope/issues/1050
         # 'datasets<=3.0.1',
@@ -22,6 +22,8 @@ setup(
         'simplejson',
         'sortedcontainers',
         # 'modelscope[nlp]',
+        # Reranker
+        'sentence-transformers',
     ],
     # dependencies_links=[
     #     'https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html',
