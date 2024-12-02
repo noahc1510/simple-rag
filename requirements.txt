@@ -15,6 +15,9 @@ oss2
 simplejson
 # modelscope[nlp]
 
+# Reranker
+sentence-transformers
+
 # API Service Only
 fastapi
 python-multipart

@@ -22,6 +22,8 @@ setup(
         'simplejson',
         'sortedcontainers',
         # 'modelscope[nlp]',
+        # Reranker
+        'sentence-transformers',
     ],
     # dependencies_links=[
     #     'https://modelscope.oss-cn-beijing.aliyuncs.com/releases/repo.html',
