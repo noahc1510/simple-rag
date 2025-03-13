@@ -1,41 +1,41 @@
 from __future__ import annotations
 from typing import Dict, Optional, Sequence
 from langchain.schema import Document
-from langchain.pydantic_v1 import Extra, root_validator
+from pydantic import BaseModel, ConfigDict
 
 from langchain.callbacks.manager import Callbacks
 from langchain.retrievers.document_compressors.base import BaseDocumentCompressor
 
 from sentence_transformers import CrossEncoder
+
+
 # from config import bge_reranker_large
 
 class BgeReranker(BaseDocumentCompressor):
     ### Model name to use for reranker
     # bge-m3: BAAI/bge-reranker-v2-m3
     # bge-large-zh: BAAI/bge-reranker-large
-    model_name:str = 'BAAI/bge-reranker-v2-m3'
-    
-    top_n: int = 10
-    model:CrossEncoder = CrossEncoder(model_name)
+    model_name: str = 'BAAI/bge-reranker-v2-m3'
 
-    def bge_rerank(self,query,docs):
-        model_inputs =  [[query, doc] for doc in docs]
+    top_n: int = 10
+    model: CrossEncoder = CrossEncoder(model_name)
+
+    def bge_rerank(self, query, docs):
+        model_inputs = [[query, doc] for doc in docs]
         scores = self.model.predict(model_inputs)
         results = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
         return results[:self.top_n]
 
-
-    class Config:
-        """Configuration for this pydantic object."""
-
-        extra = Extra.forbid
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(
+        extra='forbid',
+        arbitrary_types_allowed=True
+    )
 
     def compress_documents(
-        self,
-        documents: Sequence[Document],
-        query: str,
-        callbacks: Optional[Callbacks] = None,
+            self,
+            documents: Sequence[Document],
+            query: str,
+            callbacks: Optional[Callbacks] = None,
     ) -> Sequence[Document]:
         """
         Compress documents using BAAI/bge-reranker models.

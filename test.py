@@ -3,6 +3,7 @@ from simplerag.document_loader import HtmlLoader
 from simplerag.text_splitter import RecursiveCharacterTextSplitter
 from simplerag.kb_services import ChromaService
 from simplerag.retriever import Retriever
+from simplerag.reranker import BgeReranker
 
 from langchain_openai import OpenAIEmbeddings
 
@@ -32,9 +33,12 @@ vectorstore = ChromaService(name="example_collections", embedding_function=emb)
 # Add Document
 vectorstore.add_documents(all_splits)
 
-# Retrie
-retriever = Retriever(vectorstore=vectorstore)
+# Retrieve
+retriever = Retriever(kb_svc=vectorstore)
 retrieved_docs = retriever.query("What are the approaches to Task Decomposition?")
+
+reranker = BgeReranker()
+reranked_docs = reranker.compress_documents(retrieved_docs, "What are the approaches to Task Decomposition?")
 
 pass
 
